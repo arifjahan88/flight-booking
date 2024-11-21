@@ -3,16 +3,50 @@ import { Countries } from "../../data/CountryData";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { VscSearchFuzzy } from "react-icons/vsc";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 const SearchFields = () => {
-  const { control, handleSubmit } = useForm();
+  const [search] = useSearchParams();
+  const navigate = useNavigate();
+
+  // Get default values from URL
+  const defaultOrigin = search.get("origin");
+  const defaultDestination = search.get("destination");
+  const defaultDate = search.get("date");
+
+  // Find country objects for default values
+  const defaultOriginCountry = Countries.find((country) => country.label === defaultOrigin);
+  const defaultDestinationCountry = Countries.find(
+    (country) => country.label === defaultDestination
+  );
+
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      origin: defaultOriginCountry || null,
+      destination: defaultDestinationCountry || null,
+      date: defaultDate ? dayjs(defaultDate) : null,
+    },
+  });
 
   const onSubmit = (data) => {
     console.log(data);
+
+    navigate(
+      `/flights?origin=${data.origin.label}&destination=${data.destination.label}&date=${dayjs(
+        data?.date?.$d
+      ).format("YYYY-MM-DD")}`
+    );
   };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mt-5 grid grid-cols-3 gap-2">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={`flex gap-2 items-center p-2 ${
+        defaultDestination && defaultDate && defaultDestinationCountry ? "flex-row" : "flex-col"
+      }`}
+    >
+      <div className="mt-5 grid grid-cols-3 gap-2 w-full">
         {["Origin", "Destination", "Date"].map((i) => {
           if (i === "Date") {
             return (
@@ -20,13 +54,13 @@ const SearchFields = () => {
                 key={i}
                 name={i.toLowerCase()}
                 control={control}
-                render={({ field: { onChange } }) => (
+                render={({ field: { onChange, value } }) => (
                   <DatePicker
                     key={i}
                     label={i}
+                    value={value}
                     onChange={(newValue) => {
-                      console.log({ ...newValue, id: i.toLowerCase() });
-                      onChange({ ...newValue, id: i.toLowerCase() });
+                      onChange(newValue);
                     }}
                   />
                 )}
@@ -39,15 +73,15 @@ const SearchFields = () => {
               key={i}
               name={i.toLowerCase()}
               control={control}
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value } }) => (
                 <Autocomplete
                   options={Countries}
                   onChange={(_, newValue) => {
-                    console.log({ ...newValue, id: i.toLowerCase() });
-                    onChange({ ...newValue, id: i.toLowerCase() });
+                    onChange(newValue);
                   }}
+                  value={value}
                   autoHighlight
-                  getOptionLabel={(option) => option.label}
+                  getOptionLabel={(option) => option?.label || ""}
                   renderOption={(props, option) => {
                     const { key, ...optionProps } = props;
                     return (
