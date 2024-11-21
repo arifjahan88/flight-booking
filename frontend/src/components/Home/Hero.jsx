@@ -1,5 +1,4 @@
-
-import SearchFields from "./SearchFields";
+import SearchFields from "../common/Search/SearchFields";
 
 const Hero = () => {
   return (
@@ -21,7 +20,7 @@ const Hero = () => {
             </p>
 
             {/* Search Inputs */}
-            <SearchFields/>
+            <SearchFields />
           </div>
         </div>
       </section>
