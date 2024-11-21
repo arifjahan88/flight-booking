@@ -1,7 +1,8 @@
 import SearchFields from "../components/common/Search/SearchFields";
 import Filter from "../components/Flights/Filter";
+import Flights from "../components/Flights/Flights";
 
-export const Flights = () => {
+export const FlightsPage = () => {
   return (
     <section className="container">
       <SearchFields />
@@ -9,7 +10,9 @@ export const Flights = () => {
         <div>
           <Filter />
         </div>
-        <div className="col-span-3">right</div>
+        <div className="col-span-3">
+          <Flights />
+        </div>
       </div>
     </section>
   );
