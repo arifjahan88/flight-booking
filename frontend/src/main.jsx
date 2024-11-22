@@ -4,11 +4,15 @@ import "./index.css";
 import App from "./App.jsx";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Provider } from "react-redux";
+import { store } from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </LocalizationProvider>
   </StrictMode>
 );
