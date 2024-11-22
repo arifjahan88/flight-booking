@@ -1,0 +1,65 @@
+const Flights = require("../models/flights.model");
+const asyncHandler = require("../utils/asyncHandler");
+const { createError } = require("../utils/errorHandler");
+
+//Add Flights Controller
+exports.addFlights = asyncHandler(async (req, res, next) => {
+  const createFligts = await Flights.create(req.body);
+  if (!createFligts) {
+    throw createError(400, "Add Flights Failed");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Add Flights Successfully",
+    data: createFligts,
+  });
+});
+
+//Get Flights Controller
+exports.getFlights = asyncHandler(async (req, res, next) => {
+  const getFlights = await Flights.find();
+  if (!getFlights) {
+    throw createError(400, "Get Flights Failed");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Get Flights Successfully",
+    data: getFlights,
+  });
+});
+
+//update Flights Controller
+exports.updateFlights = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const updateFlights = await Flights.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+
+  if (!updateFlights) {
+    throw createError(400, "Update Flights Failed");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Update Flights Successfully",
+    data: updateFlights,
+  });
+});
+
+//Delete Flights Controller
+exports.deleteFlights = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const deleteFlights = await Flights.findByIdAndDelete(id);
+
+  if (!deleteFlights) {
+    throw createError(400, "Delete Flights Failed");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Delete Flights Successfully",
+    data: deleteFlights,
+  });
+});
