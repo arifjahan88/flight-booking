@@ -30,6 +30,21 @@ exports.getFlights = asyncHandler(async (req, res, next) => {
   });
 });
 
+//Get Flights by ID Controller
+exports.getFlightsById = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const getFlights = await Flights.findById(id);
+  if (!getFlights) {
+    throw createError(400, "Get Flights Failed");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Get Flights Successfully",
+    data: getFlights,
+  });
+});
+
 //update Flights Controller
 exports.updateFlights = asyncHandler(async (req, res, next) => {
   const { id } = req.params;

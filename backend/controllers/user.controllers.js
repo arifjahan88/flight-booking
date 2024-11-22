@@ -60,19 +60,3 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     data: { user: userWithoutPassword, token },
   });
 });
-
-//Get All Users
-exports.getAllUsers = asyncHandler(async (req, res, next) => {
-  const users = await Users.find()
-  .select("-password ");
-
-  if (!users) {
-    throw createError(400, "Users Not Found");
-  }
-
-  res.status(200).json({
-    success: true,
-    message: "All Users",
-    data: users,
-  });
-});

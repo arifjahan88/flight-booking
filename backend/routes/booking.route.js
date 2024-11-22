@@ -8,9 +8,11 @@ const {
 
 const router = express.Router();
 
-router.post("/add-booking", addBookings);
-router.get("/get-booking", getBookings);
-router.put("/update-booking/:id", updateBooking);
+router.post("/bookings", addBookings);
+// router.post("/bookings/user/:id", addBookings);
+
+router.get("/bookings", getBookings);
+router.put("/bookings/:id", updateBooking);
 router.delete("/delete-booking/:id", deleteBooking);
 
 module.exports = router;
