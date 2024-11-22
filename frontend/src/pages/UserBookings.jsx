@@ -1,4 +1,4 @@
-const UserDashboard = () => {
+const UserBookings = () => {
   return (
     <section className="pt-20 py-5 bg-white bg-opacity-70">
       <div className="container mx-auto overflow-hidden rounded-sm shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -45,4 +45,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default UserBookings;

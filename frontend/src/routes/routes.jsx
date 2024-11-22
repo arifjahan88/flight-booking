@@ -5,7 +5,12 @@ import FlightDetails from "../components/Flights/FlightsDetails/FlightDetails";
 import Main from "../layout/Layout";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
-import Dashboard from "../pages/Dashboard";
+import UserBookings from "../pages/UserBookings";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import DashboardLayout from "../layout/DashboardLayout";
+import AllBookings from "../pages/Dashboard/AllBookings";
+import AllUser from "../pages/Dashboard/AllUser";
+import AllFlights from "../pages/Dashboard/AllFlights";
 
 export const router = createBrowserRouter(
   [
@@ -26,11 +31,34 @@ export const router = createBrowserRouter(
           element: <FlightDetails />,
         },
         {
-          path: "/dashboard",
-          element: <Dashboard />,
+          path: "/user-bookings",
+          element: <UserBookings />,
         },
       ],
     },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
+        {
+          path: "/dashboard/all-bookings",
+          element: <AllBookings />,
+        },
+        {
+          path: "/dashboard/all-user",
+          element: <AllUser />,
+        },
+        {
+          path: "/dashboard/all-flights",
+          element: <AllFlights />,
+        },
+      ],
+    },
+
     {
       path: "/login",
       element: <Login />,
