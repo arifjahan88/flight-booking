@@ -39,7 +39,7 @@ const FlightsflightsDatad = ({ flightsData }) => {
             <>
               <span className="text-xs font-semibold text-gray-600">Price:</span>
               <span className="text-xl font-bold text-gray-800">{flightsData.price}</span>
-              <Link to={"/"}>
+              <Link to={"/flights/flight-details"} state={flightsData}>
                 <Button variant="outlined">Booking</Button>
               </Link>
             </>
