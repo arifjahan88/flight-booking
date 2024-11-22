@@ -1,5 +1,11 @@
+import CommonTable from "../../components/common/CommonTable/CommonTable";
+
 const AllBookings = () => {
-  return <div>AllBookings</div>;
+  return (
+    <>
+      <CommonTable />
+    </>
+  );
 };
 
 export default AllBookings;
