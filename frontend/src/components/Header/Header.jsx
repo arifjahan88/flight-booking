@@ -10,8 +10,12 @@ const Header = () => {
             <Link to={"/"}>Flight Booking</Link>
           </Typography>
           <Button color="inherit">
+            <Link to="/dashboard">Dashboard</Link>
+          </Button>
+          <Button color="inherit">
             <Link to="/login">Login</Link>
           </Button>
+          <Button color="inherit">Log Out</Button>
         </Toolbar>
       </AppBar>
     </Box>

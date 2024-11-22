@@ -5,6 +5,7 @@ import FlightDetails from "../components/Flights/FlightsDetails/FlightDetails";
 import Main from "../layout/Layout";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
+import Dashboard from "../pages/Dashboard";
 
 export const router = createBrowserRouter(
   [
@@ -23,6 +24,10 @@ export const router = createBrowserRouter(
         {
           path: "/flights/flight-details",
           element: <FlightDetails />,
+        },
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
         },
       ],
     },
