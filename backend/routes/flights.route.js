@@ -9,13 +9,13 @@ const {
 
 const router = express.Router();
 
-router.get("/flights", getFlights);
+router.get("/", getFlights);
 // router.get("/flights/SEARCH", getFlights);
-router.get("/flights/:id", getFlightsById);
+router.get("/:id", getFlightsById);
 
 //admin routes
-router.post("/flights", addFlights);
-router.put("/flights/:id", updateFlights);
-router.delete("/flights/:id", deleteFlights);
+router.post("/", addFlights);
+router.put("/:id", updateFlights);
+router.delete("/:id", deleteFlights);
 
 module.exports = router;

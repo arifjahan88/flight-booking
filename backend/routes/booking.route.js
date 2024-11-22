@@ -8,11 +8,11 @@ const {
 
 const router = express.Router();
 
-router.post("/bookings", addBookings);
+router.post("/", addBookings);
 // router.post("/bookings/user/:id", addBookings);
 
-router.get("/bookings", getBookings);
-router.put("/bookings/:id", updateBooking);
-router.delete("/delete-booking/:id", deleteBooking);
+router.get("/", getBookings);
+router.put("/:id", updateBooking);
+router.delete("/:id", deleteBooking);
 
 module.exports = router;

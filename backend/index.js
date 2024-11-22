@@ -13,7 +13,9 @@ app.use(express.json());
 connectDb();
 
 //Routes
-app.use("/api/v1/flights", require("./routes/flights.route.js"));
+app.use("/api/flights", require("./routes/flights.route.js"));
+app.use("/api/bookings", require("./routes/booking.route.js"));
+app.use("/api", require("./routes/auth.route.js"));
 
 app.get("/", async (req, res) => {
   res.send("Flight Booking Management server is running");
