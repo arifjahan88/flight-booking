@@ -9,6 +9,18 @@ const flightSchema = new Schema(
       unique: true,
       trim: true,
     },
+    from: {
+      type: String,
+      required: [true, "From is required"],
+    },
+    to: {
+      type: String,
+      required: [true, "To is required"],
+    },
+    date: {
+      type: String,
+      required: [true, "Date is required"],
+    },
 
     flightclass: {
       type: String,
