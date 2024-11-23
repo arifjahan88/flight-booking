@@ -6,10 +6,14 @@ import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { useGetflightssearchQuery } from "../../../store/api/endpoints/flights";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addSearchData } from "../../../store/slices/userInfo";
 
-const SearchFields = () => {
+const SearchFields = ({ setSearchData }) => {
   const [search] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Get default values from URL
   const defaultOrigin = search.get("origin");
@@ -31,7 +35,7 @@ const SearchFields = () => {
   });
 
   //Api Call
-  const { data } = useGetflightssearchQuery(
+  const { data, isFetching } = useGetflightssearchQuery(
     {
       origin: defaultOrigin,
       destination: defaultDestination,
@@ -42,11 +46,17 @@ const SearchFields = () => {
     }
   );
 
-  console.log(data);
+  useEffect(() => {
+    if (data) {
+      setSearchData({
+        data: data?.data,
+        loading: isFetching || false,
+      });
+    }
+  }, [data, setSearchData, isFetching]);
 
   const onSubmit = (data) => {
-    console.log(data);
-
+    dispatch(addSearchData({ ...data, date: dayjs(data.date).format("YYYY-MM-DD") }));
     navigate(
       `/flights?origin=${data.origin.label}&destination=${data.destination.label}&date=${dayjs(
         data?.date?.$d

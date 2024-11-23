@@ -1,24 +1,29 @@
 import { useForm, Controller } from "react-hook-form";
 import { Button, TextField } from "@mui/material";
 import { Stack } from "@mui/material";
+import { useEffect } from "react";
 
-const BookingInfo = () => {
+const BookingInfo = ({ onSubmit, setSeat }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm({
     defaultValues: {
       name: "",
       email: "",
       phone: "",
+      seats: 1,
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
-    // Handle form submission here
-  };
+  const seats = watch("seats");
+
+  // Update parent component whenever seats changes
+  useEffect(() => {
+    setSeat(Number(seats));
+  }, [seats, setSeat]);
 
   return (
     <>
@@ -81,6 +86,28 @@ const BookingInfo = () => {
                 variant="outlined"
                 error={!!errors.phone}
                 helperText={errors.phone?.message}
+              />
+            )}
+          />
+          <Controller
+            name="seats"
+            control={control}
+            rules={{
+              required: "Seat number is required",
+              min: {
+                value: 1,
+                message: "Minimum 1 seat is required",
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                className="w-full"
+                label="Seats"
+                type="number"
+                variant="outlined"
+                error={!!errors.seats}
+                helperText={errors.seats?.message}
               />
             )}
           />

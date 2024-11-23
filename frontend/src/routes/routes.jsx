@@ -9,9 +9,9 @@ import UserBookings from "../pages/UserBookings";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import DashboardLayout from "../layout/DashboardLayout";
 import AllBookings from "../pages/Dashboard/AllBookings";
-import AllUser from "../pages/Dashboard/AllUser";
 import AllFlights from "../pages/Dashboard/AllFlights";
 import PrivateRoute from "./PrivateRoutes";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter(
   [
@@ -47,7 +47,11 @@ export const router = createBrowserRouter(
     },
     {
       path: "/dashboard",
-      element: <DashboardLayout />,
+      element: (
+        <AdminRoute>
+          <DashboardLayout />
+        </AdminRoute>
+      ),
       children: [
         {
           path: "/dashboard",
@@ -57,10 +61,7 @@ export const router = createBrowserRouter(
           path: "/dashboard/all-bookings",
           element: <AllBookings />,
         },
-        {
-          path: "/dashboard/all-user",
-          element: <AllUser />,
-        },
+
         {
           path: "/dashboard/all-flights",
           element: <AllFlights />,

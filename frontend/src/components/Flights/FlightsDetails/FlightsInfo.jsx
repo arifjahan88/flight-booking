@@ -1,29 +1,29 @@
 import { Alert, Badge, Card, CardContent } from "@mui/material";
 import { FaCheck } from "react-icons/fa6";
 
-const FlightsInfo = ({state}) => {
-    const descData = [
-        {
-          title: "Great choice",
-          data: [
-            "CustomerRating: 7.7",
-            "Most popular fuel policy: Full to Full",
-            "Well-maintained cars",
-            "Free Cancellation",
-            "Helpful counter staff",
-            "Easy to find counter",
-          ],
-        },
-        {
-          title: "Included in the price",
-          data: [
-            "Free cancellation up to 48 hours before pick-up",
-            "Collision Damage Waiver with $0 deductible",
-            "Theft Protection with $0 excess",
-            "Unlimited mileage",
-          ],
-        },
-      ];
+const FlightsInfo = ({ state }) => {
+  const descData = [
+    {
+      title: "Great choice",
+      data: [
+        "CustomerRating: 7.7",
+        "Most popular fuel policy: Full to Full",
+        "Well-maintained cars",
+        "Free Cancellation",
+        "Helpful counter staff",
+        "Easy to find counter",
+      ],
+    },
+    {
+      title: "Included in the price",
+      data: [
+        "Free cancellation up to 48 hours before pick-up",
+        "Collision Damage Waiver with $0 deductible",
+        "Theft Protection with $0 excess",
+        "Unlimited mileage",
+      ],
+    },
+  ];
   return (
     <div>
       <Alert
@@ -37,7 +37,10 @@ const FlightsInfo = ({state}) => {
         {/* Image Section */}
         <div className="relative h-96 overflow-hidden">
           <img
-            src={state?.image}
+            // src={state?.image}
+            src={
+              "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            }
             alt="Flight"
             className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
           />
@@ -50,13 +53,13 @@ const FlightsInfo = ({state}) => {
           {/* Amenities Section */}
           <div>
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-gray-800">{state.airline}</h2>
-              <span className="text-2xl font-semibold text-blue-600">{state.price}</span>
+              <h2 className="text-2xl font-bold text-gray-800">{state.flightname}</h2>
+              <span className="text-2xl font-semibold text-blue-600">{state.price} Taka</span>
             </div>
-            <p className="text-gray-600">{state.flightClass} Class</p>
+            <p className="text-gray-600">{state.flightclass} Class</p>
             <h3 className="text-sm font-semibold text-gray-700 my-2">Facilites</h3>
             <div className="flex flex-wrap gap-2">
-              {state.amenities.map((amenity, index) => (
+              {state.facilities.map((amenity, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-1 bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-700"

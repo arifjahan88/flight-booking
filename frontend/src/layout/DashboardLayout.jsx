@@ -50,11 +50,6 @@ export default function DashboardLayout() {
       icon: <InboxIcon />,
       url: "/dashboard/all-flights",
     },
-    {
-      name: "AllUser",
-      icon: <InboxIcon />,
-      url: "/dashboard/all-user",
-    },
   ];
 
   return (
