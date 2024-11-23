@@ -5,7 +5,7 @@ const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().userReducer?.userInfo?.access_token;
+      const token = getState().userReducer?.userInfo?.token;
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
         return headers;

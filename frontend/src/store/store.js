@@ -13,6 +13,7 @@ import userReducer from "./slices/userInfo";
 import modalReducer from "./slices/modalSlice";
 import storage from "./storage";
 import baseApi from "./api/baseApi";
+import { errorLoggingMiddleware } from "./middleware";
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
@@ -36,7 +37,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(baseApi.middleware),
+    }).concat(baseApi.middleware, errorLoggingMiddleware),
 });
 
 export const persistor = persistStore(store);

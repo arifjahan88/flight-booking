@@ -1,7 +1,6 @@
 import { Autocomplete, Button, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Controller, useForm } from "react-hook-form";
-import { FLIGHT_FACILITIES } from "./constants";
 import { useSelector } from "react-redux";
 import { selectModal } from "../../../store/slices/modalSlice";
 import { useEffect } from "react";
@@ -54,19 +53,19 @@ const CommonForm = ({ formData, onSubmit, loading }) => {
                 required: item.required ? "This field is required" : false,
               }}
               render={({ field }) => {
-                if (item.type === "multiselect") {
+                if (item.type === "multiselect" || item.type === "select") {
                   return (
                     <Autocomplete
-                      multiple
+                      multiple={item.type === "multiselect"}
                       id="tags-outlined"
-                      options={FLIGHT_FACILITIES}
+                      options={item?.values}
                       getOptionLabel={(option) => option}
                       value={field.value || []}
                       onChange={(_, newValue) => {
                         field.onChange(newValue);
                       }}
                       filterSelectedOptions
-                      disableCloseOnSelect
+                      disableCloseOnSelect={item.type === "multiselect"}
                       renderInput={(params) => (
                         <TextField
                           {...params}

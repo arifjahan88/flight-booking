@@ -12,6 +12,7 @@ import {
   useUpdateflightsMutation,
 } from "../../store/api/endpoints/flights";
 import TableLoader from "../../components/Loader/TableLoader";
+import dayjs from "dayjs";
 
 const AllFlights = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const AllFlights = () => {
       flightname: data.flightname,
       from: data.from,
       to: data.to,
-      date: data.date,
+      date: dayjs(data.date).format("YYYY-MM-DD"),
       price: data.price,
       facilities: data.facilities,
       flightclass: data.flightclass,

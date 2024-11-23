@@ -11,6 +11,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import AllBookings from "../pages/Dashboard/AllBookings";
 import AllUser from "../pages/Dashboard/AllUser";
 import AllFlights from "../pages/Dashboard/AllFlights";
+import PrivateRoute from "./PrivateRoutes";
 
 export const router = createBrowserRouter(
   [
@@ -28,11 +29,19 @@ export const router = createBrowserRouter(
         },
         {
           path: "/flights/flight-details",
-          element: <FlightDetails />,
+          element: (
+            <PrivateRoute>
+              <FlightDetails />
+            </PrivateRoute>
+          ),
         },
         {
           path: "/user-bookings",
-          element: <UserBookings />,
+          element: (
+            <PrivateRoute>
+              <UserBookings />
+            </PrivateRoute>
+          ),
         },
       ],
     },

@@ -5,6 +5,7 @@ import { VscSearchFuzzy } from "react-icons/vsc";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import dayjs from "dayjs";
+import { useGetflightssearchQuery } from "../../../store/api/endpoints/flights";
 
 const SearchFields = () => {
   const [search] = useSearchParams();
@@ -28,6 +29,20 @@ const SearchFields = () => {
       date: defaultDate ? dayjs(defaultDate) : null,
     },
   });
+
+  //Api Call
+  const { data } = useGetflightssearchQuery(
+    {
+      origin: defaultOrigin,
+      destination: defaultDestination,
+      date: defaultDate,
+    },
+    {
+      skip: !defaultOrigin || !defaultDestination || !defaultDate,
+    }
+  );
+
+  console.log(data);
 
   const onSubmit = (data) => {
     console.log(data);

@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginFormData } from "./FormData";
+import { useLoginMutation } from "../../store/api/endpoints/auth";
+import { showToast } from "../../components/hooks/showToast";
 
 const Login = () => {
   const {
@@ -8,9 +10,17 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
-  const handleLoginSubmit = (data) => {
-    console.log(data);
+  //Api Call
+  const [loginUser, { isLoading }] = useLoginMutation();
+  const handleLoginSubmit = async (data) => {
+    const res = await loginUser(data);
+    if (res?.data?.success) {
+      if (res?.data?.data?.user?.role.toLowerCase() === "user") navigate("/user-bookings");
+      if (res?.data?.data?.user?.role.toLowerCase() === "admin") navigate("/dashboard");
+      showToast.success(res?.data?.message);
+    }
   };
   return (
     <div className="flex flex-row-reverse h-screen">
@@ -52,9 +62,10 @@ const Login = () => {
             <div>
               <button
                 type="submit"
+                disabled={isLoading}
                 className="w-full bg-[#6447F7] text-white p-2 mt-2 rounded-md hover:bg-[#8749a5]  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 uppercase font-bold"
               >
-                Submit
+                {isLoading ? "Loading..." : "Login"}
               </button>
             </div>
           </form>

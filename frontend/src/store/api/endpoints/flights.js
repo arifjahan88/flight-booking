@@ -20,8 +20,10 @@ export const flightsApi = baseApi.injectEndpoints({
     }),
 
     getflightssearch: builder.query({
-      query: () => ({
-        url: `/flights/search`,
+      query: ({ origin, destination, date }) => ({
+        url: `/flights/search?origin=${origin || ""}&destination=${destination || ""}&date=${
+          date || ""
+        }`,
         method: "GET",
       }),
       providesTags: ["flights"],

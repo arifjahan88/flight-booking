@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { registerFormData } from "./FormData";
+import { showToast } from "../../components/hooks/showToast";
+import { useRegisterMutation } from "../../store/api/endpoints/auth";
 
 const Register = () => {
   const {
@@ -9,8 +11,14 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const handleRegisterSubmit = (data) => {
-    console.log(data);
+  //Api Call
+  const [addUser, { isLoading }] = useRegisterMutation();
+
+  const handleRegisterSubmit = async (data) => {
+    const res = await addUser(data);
+    if (res?.data?.success) {
+      showToast.success(res?.data?.message);
+    }
   };
 
   return (
@@ -56,9 +64,10 @@ const Register = () => {
               <div>
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className="w-full bg-[#6447F7] text-white p-2 mt-2 rounded-md hover:bg-[#8749a5]  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 uppercase font-bold"
                 >
-                  Submit
+                  {isLoading ? "Loading..." : "Register"}
                 </button>
               </div>
             </form>
