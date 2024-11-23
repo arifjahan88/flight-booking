@@ -78,3 +78,22 @@ exports.deleteFlights = asyncHandler(async (req, res, next) => {
     data: deleteFlights,
   });
 });
+
+//get flights by search
+exports.searchFlights = asyncHandler(async (req, res, next) => {
+  const { origin, destination, date } = req.query;
+
+  const searchFlights = await Flights.find({
+    $or: [{ from: origin, to: destination, date: date }],
+  }); // Sort by departure date ascending
+
+  if (!searchFlights || searchFlights.length === 0) {
+    return next(createError(404, "No flights found matching your criteria"));
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Search Flights Successfully",
+    data: searchFlights,
+  });
+});

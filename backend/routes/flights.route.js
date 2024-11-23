@@ -5,12 +5,13 @@ const {
   updateFlights,
   deleteFlights,
   getFlightsById,
+  searchFlights,
 } = require("../controllers/flights.controllers");
 
 const router = express.Router();
 
 router.get("/", getFlights);
-// router.get("/flights/SEARCH", getFlights);
+router.get("/search", searchFlights);
 router.get("/:id", getFlightsById);
 
 //admin routes

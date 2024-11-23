@@ -28,7 +28,8 @@ const usersSchema = new Schema(
       unique: true,
     },
     bookingid: {
-      type: String,
+      type: Array,
+      default: [],
       unique: true,
     },
     password: {
@@ -37,7 +38,7 @@ const usersSchema = new Schema(
     },
     role: {
       type: String,
-      required: true,
+      default: "user",
     },
   },
   {
