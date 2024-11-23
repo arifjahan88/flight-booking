@@ -1,4 +1,6 @@
 const Booking = require("../models/booking.model");
+const Flights = require("../models/flights.model");
+const Users = require("../models/user.model");
 const asyncHandler = require("../utils/asyncHandler");
 const { createError } = require("../utils/errorHandler");
 
@@ -8,6 +10,15 @@ exports.addBookings = asyncHandler(async (req, res, next) => {
   if (!createBookings) {
     throw createError(400, "Add Booking Failed");
   }
+
+  //Add booking id to user
+  const { _id } = req.user;
+  const user = await Users.findById(_id);
+  if (!user) {
+    throw createError(400, "User Not Found");
+  }
+  user.bookingid.push(createBookings._id);
+  await user.save();
 
   res.status(200).json({
     success: true,
@@ -27,6 +38,37 @@ exports.getBookings = asyncHandler(async (req, res, next) => {
     success: true,
     message: "Get Booking Successfully",
     data: getBookings,
+  });
+});
+
+//Get booking by id Controller
+exports.getBookingByUserId = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const getBookingById = await Users.findById(id).populate("bookingid").select("bookingid");
+  if (!getBookingById) {
+    throw createError(400, "Get Booking By Id Failed");
+  }
+
+  // Wait for all promises to resolve using Promise.all
+  const filterflights = await Promise.all(
+    getBookingById?.bookingid?.map(async (item) => {
+      const { flightId } = item;
+      console.log(flightId);
+      const flightDetails = await Flights.findById(flightId);
+
+      return {
+        ...item._doc,
+        flight: flightDetails,
+        flightId: undefined,
+      };
+    })
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Get Booking By Id Successfully",
+    data: filterflights,
   });
 });
 
@@ -57,6 +99,15 @@ exports.deleteBooking = asyncHandler(async (req, res, next) => {
   if (!deleteBooking) {
     throw createError(400, "Delete Booking Failed");
   }
+
+  // Remove the booking ID from user's bookingid array
+  await Users.findByIdAndUpdate(
+    req?.user?._id,
+    {
+      $pull: { bookingid: id },
+    },
+    { new: true }
+  );
 
   res.status(200).json({
     success: true,

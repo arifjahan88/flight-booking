@@ -27,11 +27,12 @@ const usersSchema = new Schema(
       type: String,
       unique: true,
     },
-    bookingid: {
-      type: Array,
-      default: [],
-      unique: true,
-    },
+    bookingid: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Booking",
+      },
+    ],
     password: {
       type: String,
       required: true,

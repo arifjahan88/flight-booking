@@ -87,7 +87,7 @@ exports.searchFlights = asyncHandler(async (req, res, next) => {
     $or: [{ from: origin, to: destination, date: date }],
   }); // Sort by departure date ascending
 
-  if (!searchFlights || searchFlights.length === 0) {
+  if (!searchFlights) {
     return next(createError(404, "No flights found matching your criteria"));
   }
 

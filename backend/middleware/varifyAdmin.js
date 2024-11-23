@@ -1,7 +1,7 @@
 const asyncHandler = require("../utils/asyncHandler");
 const { createError } = require("../utils/errorHandler");
 
-const verifyToken = asyncHandler(async (req, res, next) => {
+const verifyAdmin = asyncHandler(async (req, res, next) => {
   try {
     if (!req.user) {
       throw createError(401, "You are not Authenticate!");
@@ -19,4 +19,4 @@ const verifyToken = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = verifyToken;
+module.exports = verifyAdmin;

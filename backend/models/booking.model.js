@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const flightbookingschema = new Schema(
   {
-    userName: {
+    name: {
       type: String,
       required: true,
       trim: true,
@@ -14,16 +14,25 @@ const flightbookingschema = new Schema(
       trim: true,
       index: true,
     },
-    userEmail: {
+    email: {
       type: String,
       required: true,
     },
-    userNumber: {
+    phone: {
       type: String,
       required: true,
     },
-    sitNumber: {
+    seats: {
       type: Number,
+      required: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "Users",
       required: true,
     },
   },
