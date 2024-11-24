@@ -83,17 +83,36 @@ exports.deleteFlights = asyncHandler(async (req, res, next) => {
 exports.searchFlights = asyncHandler(async (req, res, next) => {
   const { origin, destination, date } = req.query;
 
+  const page = parseInt(req.query.page) || 1; // Default to page 1
+  const itemsPerPage = parseInt(req.query.itemsPerPage) || 10; // Default to 10 items per page
+  const skip = (page - 1) * itemsPerPage;
+
   const searchFlights = await Flights.find({
     $or: [{ from: origin, to: destination, date: date }],
-  }); // Sort by departure date ascending
+  })
+    .skip(skip)
+    .limit(itemsPerPage);
+
+  // Calculate total pages
+  const totalFlights = searchFlights.length;
+  const totalPages = Math.ceil(totalFlights / itemsPerPage);
 
   if (!searchFlights) {
     return next(createError(404, "No flights found matching your criteria"));
   }
 
+  // Prepare pagination info
+  const paginationInfo = {
+    currentPage: page,
+    itemsPerPage,
+    totalItems: totalFlights,
+    totalPages,
+  };
+
   res.status(200).json({
     success: true,
     message: "Search Flights Successfully",
+    pagination: paginationInfo,
     data: searchFlights,
   });
 });
