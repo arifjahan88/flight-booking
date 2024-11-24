@@ -1,22 +1,27 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerFormData } from "./FormData";
 import { showToast } from "../../components/hooks/showToast";
 import { useRegisterMutation } from "../../store/api/endpoints/auth";
+import logo from "../../assets/images/logo-text.png";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   //Api Call
   const [addUser, { isLoading }] = useRegisterMutation();
+  const navigate = useNavigate();
 
   const handleRegisterSubmit = async (data) => {
     const res = await addUser(data);
     if (res?.data?.success) {
+      reset();
+      navigate("/login");
       showToast.success(res?.data?.message);
     }
   };
@@ -37,6 +42,9 @@ const Register = () => {
         </div>
         <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
           <div className="max-w-md w-full p-3">
+            <Link to="/">
+              <img src={logo} alt="logo" className="w-2/3 mx-auto mb-5" />
+            </Link>
             <form className="space-y-1" onSubmit={handleSubmit(handleRegisterSubmit)}>
               {registerFormData?.map((item, idx) => {
                 return (

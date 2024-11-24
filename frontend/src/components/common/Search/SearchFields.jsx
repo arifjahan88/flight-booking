@@ -9,6 +9,7 @@ import { useGetflightssearchQuery } from "../../../store/api/endpoints/flights";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addSearchData } from "../../../store/slices/userInfo";
+import { showToast } from "../../hooks/showToast";
 
 const SearchFields = ({ setSearchData }) => {
   const [search] = useSearchParams();
@@ -56,6 +57,11 @@ const SearchFields = ({ setSearchData }) => {
   }, [data, setSearchData, isFetching]);
 
   const onSubmit = (data) => {
+    if (!data.origin || !data.destination || !data.date) {
+      showToast.error("Please fill all the fields");
+      return;
+    }
+
     dispatch(addSearchData({ ...data, date: dayjs(data.date).format("YYYY-MM-DD") }));
     navigate(
       `/flights?origin=${data.origin.label}&destination=${data.destination.label}&date=${dayjs(
@@ -68,10 +74,10 @@ const SearchFields = ({ setSearchData }) => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className={`flex gap-2 items-center p-2 ${
-        defaultDestination && defaultDate && defaultDestinationCountry ? "flex-row" : "flex-col"
+        defaultDestination || defaultDate || defaultDestinationCountry ? "flex-row" : "flex-col"
       }`}
     >
-      <div className="mt-5 grid grid-cols-3 gap-2 w-full">
+      <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
         {["Origin", "Destination", "Date"].map((i) => {
           if (i === "Date") {
             return (
@@ -79,13 +85,21 @@ const SearchFields = ({ setSearchData }) => {
                 key={i}
                 name={i.toLowerCase()}
                 control={control}
-                render={({ field: { onChange, value } }) => (
+                rules={{ required: `${i} is required` }}
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <DatePicker
                     key={i}
                     label={i}
                     value={value}
+                    disablePast
                     onChange={(newValue) => {
                       onChange(newValue);
+                    }}
+                    slotProps={{
+                      textField: {
+                        error: !!error,
+                        helperText: error?.message,
+                      },
                     }}
                   />
                 )}
@@ -98,7 +112,8 @@ const SearchFields = ({ setSearchData }) => {
               key={i}
               name={i.toLowerCase()}
               control={control}
-              render={({ field: { onChange, value } }) => (
+              rules={{ required: `${i} is required` }}
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <Autocomplete
                   options={Countries}
                   onChange={(_, newValue) => {
@@ -127,7 +142,9 @@ const SearchFields = ({ setSearchData }) => {
                       </Box>
                     );
                   }}
-                  renderInput={(params) => <TextField {...params} label={i} />}
+                  renderInput={(params) => (
+                    <TextField {...params} label={i} error={!!error} helperText={error?.message} />
+                  )}
                 />
               )}
             />

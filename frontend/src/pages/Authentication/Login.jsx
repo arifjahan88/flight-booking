@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginFormData } from "./FormData";
 import { useLoginMutation } from "../../store/api/endpoints/auth";
 import { showToast } from "../../components/hooks/showToast";
+import logo from "../../assets/images/logo-text.png";
 
 const Login = () => {
   const {
@@ -37,6 +38,9 @@ const Login = () => {
       </div>
       <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
         <div className="max-w-md w-full p-6">
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-2/3 mx-auto mb-5" />
+          </Link>
           <form className="space-y-4" onSubmit={handleSubmit(handleLoginSubmit)}>
             {loginFormData?.map((item, idx) => {
               return (

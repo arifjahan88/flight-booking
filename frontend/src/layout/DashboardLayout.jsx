@@ -21,10 +21,14 @@ import { AppBar, Drawer, DrawerHeader } from "../components/utilities/MetarialDe
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineLogout } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { addUser } from "../store/slices/userInfo";
+import { showToast } from "../components/hooks/showToast";
 
 export default function DashboardLayout() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -75,7 +79,13 @@ export default function DashboardLayout() {
             Flight Bookings
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton aria-label="delete">
+          <IconButton
+            onClick={() => {
+              showToast.success("Logged Out Successfully");
+              dispatch(addUser({}));
+            }}
+            aria-label="delete"
+          >
             <AiOutlineLogout color="white" />
           </IconButton>
         </Toolbar>
