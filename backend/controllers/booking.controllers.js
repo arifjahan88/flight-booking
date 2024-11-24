@@ -11,6 +11,15 @@ exports.addBookings = asyncHandler(async (req, res, next) => {
     throw createError(400, "Add Booking Failed");
   }
 
+  //seat count decrement
+  const { flightId, seats } = req.body;
+  const flight = await Flights.findById(flightId);
+  if (!flight) {
+    throw createError(400, "Flight Not Found");
+  }
+  flight.totalseats = flight.totalseats - seats;
+  await flight.save();
+
   //Add booking id to user
   const { _id } = req.user;
   const user = await Users.findById(_id);
@@ -54,7 +63,6 @@ exports.getBookingByUserId = asyncHandler(async (req, res, next) => {
   const filterflights = await Promise.all(
     getBookingById?.bookingid?.map(async (item) => {
       const { flightId } = item;
-      console.log(flightId);
       const flightDetails = await Flights.findById(flightId);
 
       return {
@@ -94,7 +102,16 @@ exports.updateBooking = asyncHandler(async (req, res, next) => {
 //Delete booking Controller
 exports.deleteBooking = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
+
   const deleteBooking = await Booking.findByIdAndDelete(id);
+
+  //seat count increment
+  const flight = await Flights.findById(deleteBooking?.flightId);
+  if (!flight) {
+    throw createError(400, "Flight Not Found");
+  }
+  flight.totalseats = flight.totalseats + deleteBooking?.seats;
+  await flight.save();
 
   if (!deleteBooking) {
     throw createError(400, "Delete Booking Failed");
