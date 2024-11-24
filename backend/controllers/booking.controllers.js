@@ -2,6 +2,7 @@ const Booking = require("../models/booking.model");
 const Flights = require("../models/flights.model");
 const Users = require("../models/user.model");
 const asyncHandler = require("../utils/asyncHandler");
+const { sendBookingConfirmationEmail } = require("../utils/emailService");
 const { createError } = require("../utils/errorHandler");
 
 //Add booking Controller
@@ -28,6 +29,9 @@ exports.addBookings = asyncHandler(async (req, res, next) => {
   }
   user.bookingid.push(createBookings._id);
   await user.save();
+
+  // Send booking confirmation email
+  await sendBookingConfirmationEmail(createBookings, flight, user);
 
   res.status(200).json({
     success: true,
