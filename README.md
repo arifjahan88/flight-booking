@@ -31,6 +31,10 @@ Use the following credentials to log in and explore the application:
 - **Email:** user@gmail.com
 - **Password:** user
 
+### For Search
+
+- For Search use origin - Bangladesh, destination - Australia and date 29-11-24. I made this so that it's will easy for you. otherwise you can create flights as well as.
+
 ## 🛠️ Technologies Used
 
 ### Frontend
