@@ -1,21 +1,12 @@
-import { showToast } from "../components/hooks/showToast";
 import { UserInfo } from "../components/hooks/useUserInfo";
 import TableLoader from "../components/Loader/TableLoader";
-import { useDeletebookingMutation, useGetbookinguserQuery } from "../store/api/endpoints/booking";
+import { useGetbookinguserQuery } from "../store/api/endpoints/booking";
 
 const UserBookings = () => {
   const { fullname, email, phone, _id } = UserInfo();
 
   //Api Call
   const { data, isFetching } = useGetbookinguserQuery(_id);
-  const [deleteBooking] = useDeletebookingMutation();
-
-  const handleDelete = async (id) => {
-    const res = await deleteBooking(id);
-    if (res?.data?.success) {
-      showToast.success(res?.data?.message);
-    }
-  };
 
   const renderContent = () => {
     if (isFetching) {
@@ -36,16 +27,11 @@ const UserBookings = () => {
             <img
               alt="Booking Image"
               src={
-                "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               }
               className="h-48 w-full object-cover"
             />
-            <button
-              onClick={() => handleDelete(item?._id)}
-              className="absolute z-0 top-0 right-0 text-white p-1.5 rounded-bl-md bg-red-500"
-            >
-              Delete
-            </button>
+
             <div className="bg-white p-4 sm:p-6">
               <time dateTime={"itemDate"} className="block text-xs text-gray-500">
                 {item?.flight?.from} ~ {item?.flight?.to}

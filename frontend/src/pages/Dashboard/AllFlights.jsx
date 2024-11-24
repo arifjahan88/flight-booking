@@ -37,7 +37,6 @@ const AllFlights = () => {
       rating: data.rating,
       totalseats: data.totalseats,
     };
-    console.log("Send Data", sendData);
 
     const apiCall = data?._id
       ? await updateFlights({

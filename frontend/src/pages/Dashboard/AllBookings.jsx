@@ -20,7 +20,11 @@ const AllBookings = () => {
       {BookingsFetching || DeleteLoading ? (
         <TableLoader />
       ) : (
-        <CommonTable data={AllBookings?.data} onDelete={handleDelete} hiddenKeys={["flightId"]} />
+        <CommonTable
+          data={AllBookings?.data}
+          onDelete={handleDelete}
+          hiddenKeys={["flightId", "user"]}
+        />
       )}
       <CommonDialog
         title="Add Bookings"

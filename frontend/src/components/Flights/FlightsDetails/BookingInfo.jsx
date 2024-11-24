@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import { Stack } from "@mui/material";
 import { useEffect } from "react";
 
-const BookingInfo = ({ onSubmit, setSeat }) => {
+const BookingInfo = ({ onSubmit, setSeat, loading }) => {
   const {
     control,
     handleSubmit,
@@ -112,8 +112,8 @@ const BookingInfo = ({ onSubmit, setSeat }) => {
             )}
           />
 
-          <Button type="submit" variant="contained" className="w-full">
-            Book
+          <Button type="submit" variant="contained" className="w-full" disabled={loading}>
+            {loading ? "Loading..." : "Book Now"}
           </Button>
         </Stack>
       </form>

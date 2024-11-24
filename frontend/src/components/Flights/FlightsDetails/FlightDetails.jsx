@@ -15,7 +15,7 @@ const FlightDetails = () => {
   const { _id } = UserInfo();
 
   //Api Call
-  const [addBookings] = useAddbookingMutation();
+  const [addBookings, { isLoading }] = useAddbookingMutation();
 
   const onSubmit = async (data) => {
     const res = await addBookings({
@@ -39,7 +39,7 @@ const FlightDetails = () => {
         <div className="space-y-3">
           <OriginToDestination />
           <PriceInfo price={price} />
-          <BookingInfo onSubmit={onSubmit} setSeat={setSeat} />
+          <BookingInfo onSubmit={onSubmit} setSeat={setSeat} loading={isLoading} />
         </div>
       </div>
     </section>

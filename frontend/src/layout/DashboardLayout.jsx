@@ -27,7 +27,7 @@ import { showToast } from "../components/hooks/showToast";
 
 export default function DashboardLayout() {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
