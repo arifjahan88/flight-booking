@@ -31,6 +31,7 @@ const usersSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Booking",
+        default: [],
       },
     ],
     password: {
