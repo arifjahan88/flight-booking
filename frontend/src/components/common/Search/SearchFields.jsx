@@ -52,6 +52,7 @@ const SearchFields = ({ setSearchData }) => {
       setSearchData({
         data: data?.data,
         loading: isFetching || false,
+        pagination: data?.pagination,
       });
     }
   }, [data, setSearchData, isFetching]);

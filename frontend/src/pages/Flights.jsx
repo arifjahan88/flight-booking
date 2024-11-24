@@ -8,6 +8,7 @@ export const FlightsPage = () => {
   const [searchData, setSearchData] = useState({
     data: [],
     loading: true,
+    pagination: {},
   });
   return (
     <section className="container">
@@ -22,7 +23,7 @@ export const FlightsPage = () => {
           ) : searchData?.data.length === 0 ? (
             <p className="text-center mt-5 text-2xl font-bold">No Flights Found</p>
           ) : (
-            <Flights data={searchData?.data} />
+            <Flights data={searchData?.data} pagination={searchData?.pagination} />
           )}
         </div>
       </div>

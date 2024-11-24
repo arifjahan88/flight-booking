@@ -1,22 +1,22 @@
+import { Pagination } from "@mui/material";
 import FlightsCard from "./FlightsCard";
 
-const Flights = ({ data }) => {
+const Flights = ({ data, pagination }) => {
   return (
     <section className="space-y-5">
       {data?.map((item, index) => (
         <FlightsCard key={index} data={item} />
       ))}
-      {/* <FlightsCard
-        flightsData={{
-          airline: "Emirates",
-          flightClass: "Economy",
-          price: "$500",
-          rating: "4+ Star",
-          amenities: ["WiFi", "In-flight Meals", "Entertainment"],
-          image:
-            "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      <Pagination
+        sx={{
+          display: "flex",
+          justifyContent: "center",
         }}
-      /> */}
+        page={pagination?.currentPage}
+        count={pagination?.totalPages}
+        variant="outlined"
+        shape="rounded"
+      />
     </section>
   );
 };
