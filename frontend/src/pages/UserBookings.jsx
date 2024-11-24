@@ -27,6 +27,7 @@ const UserBookings = () => {
             <img
               alt="Booking Image"
               src={
+                item?.flight?.imageUrl ||
                 "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               }
               className="h-48 w-full object-cover"

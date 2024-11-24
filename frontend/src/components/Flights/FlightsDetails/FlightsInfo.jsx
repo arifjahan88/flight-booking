@@ -37,8 +37,8 @@ const FlightsInfo = ({ state }) => {
         {/* Image Section */}
         <div className="relative h-96 overflow-hidden">
           <img
-            // src={state?.image}
             src={
+              state?.imageUrl ||
               "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             }
             alt="Flight"

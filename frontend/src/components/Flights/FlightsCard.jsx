@@ -7,8 +7,8 @@ const FlightsflightsDatad = ({ data: flightsData }) => {
       <div className="bg-white shadow-md rounded-lg overflow-hidden grid grid-cols-1 lg:grid-cols-5">
         <div className="relative col-span-2">
           <img
-            // src={flightsData.image}
             src={
+              flightsData.imageUrl ||
               "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             }
             alt={flightsData.airline}

@@ -25,7 +25,7 @@ export const FlightFormData = () => {
       required: true,
     },
     { label: "Price", name: "price", type: "number", required: true },
-    { label: "Image Url", name: "imageUrl", type: "text", required: true },
+    { label: "Image Url", name: "imageUrl", type: "text", required: false },
     { label: "Rating", name: "rating", type: "number", required: true },
     { label: "Total Seats", name: "totalseats", type: "number", required: true },
   ];
