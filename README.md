@@ -17,6 +17,20 @@ A full-stack flight booking application built with the MERN stack (MongoDB, Expr
 - Frontend Application: [flight-booking-qcux.vercel.app](flight-booking-qcux.vercel.app)
 - Backend API: [flight-booking-sable.vercel.app](flight-booking-sable.vercel.app)
 
+## Demo Credentials
+
+Use the following credentials to log in and explore the application:
+
+### Admin Account
+
+- **Email:** admin@gmail.com
+- **Password:** admin
+
+### User Account
+
+- **Email:** user@gmail.com
+- **Password:** user
+
 ## 🛠️ Technologies Used
 
 ### Frontend
